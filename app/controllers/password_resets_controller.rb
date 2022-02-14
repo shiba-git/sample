@@ -38,7 +38,7 @@ class PasswordResetsController < ApplicationController
   private 
   
   def user_params
-    params.require(:user).permit(:password, :password_confirmation)  
+    params.require(:user).permit(:password, :password_confirmation)
   end
   
   def get_user
@@ -46,9 +46,10 @@ class PasswordResetsController < ApplicationController
   end
   
   def valid_user
-    unless (@user && @user.activated? && @user.authenticated?(:reset, params[:id]))
+    unless (@user && @user.activated? &&
+            @user.authenticated?(:reset, params[:id]))
+      redirect_to root_url
     end
-    redirect_to root_url
   end
   
   def check_expiration
